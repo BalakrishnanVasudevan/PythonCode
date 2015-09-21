@@ -11,9 +11,11 @@ def pascal(rows):
 
 
 rows = input('Enter the number of rows \n')
+rows = int(rows)
 pascal(rows)
-print 'enter the row and column of the element to be looked up \n'
+print ('enter the row and column of the element to be looked up \n')
 a = input('enter the row: \n')
 b = input('enter the column: \n')
-print 'Element \n'
-print math.factorial(a)/((math.factorial(a-b))*math.factorial(b))
+a, b = int(a), int(b)
+print ('Element \n')
+print (math.factorial(a)/((math.factorial(a-b))*math.factorial(b)))
