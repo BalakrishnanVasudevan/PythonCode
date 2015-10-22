@@ -1,0 +1,13 @@
+tic = [' '] * 10
+print (' | | |')
+print (' ' + tic[7] + ' ' + tic[8] + ' ' + tic[9])
+print (' | | |')
+print (' -----')
+print (' | | |')
+print (' ' + tic[4] + ' ' + tic[5] + ' ' + tic[6])
+print (' | | |')
+print (' -----')
+print (' | | |')
+print (' ' + tic[1] + ' ' + tic[2] + ' ' + tic[3])
+print (' | | |')
+print (' -----')

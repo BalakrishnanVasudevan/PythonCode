@@ -15,7 +15,7 @@ def hanoi(n, source, mid, dest):
 
 
 
-source = [i for i in range (1,64)]
+source = [i for i in range (1,10)]
 print (source)
 mid = []
 dest =[]

@@ -1,0 +1,718 @@
+Given three arrays, A, B, and C, what is the best algorithm to find the minimum value of |a−b|+|b−c|+|c−a|, where  a∈A,b∈B,c∈C?
+Here's a key insight that makes this problem much simpler. If the formula seems intimidating, try drawing a picture. Imagine the three elements on the x axis:
+1
+2
+3
+---------------|----------|-----|-------------
+               c          a     b
+                    x        y
+
+In general, our three elements determine a line segment. Its length x+y is the difference between the elements that are its endpoints -- in our example, |b−c|.
+The same length can also be broken down at the third element. We get two separate parts: x and y. In our example, one is |a−c| and the other is |b−a|.
+
+Thus, the sum |a−b|+|b−c|+|c−a| equals twice the length of the shortest segment that contains all three numbers.
+*+*
+Assuming that the arrays are not sorted, here is an nlogn algorithm.
+
+Sort the arrays A, B and C. Let there sizes be n,m and p.
+let i,j,k =0 points to the start indices of the 3 arrays.
+ans = INT_MAX;
+while(i < n && j<m && k<p)
+       ans = min(ans, abs(A[i] - B[j]) + abs(B[j] - C[k]) + abs(C[k]-A[i]))
+       increment the index of minumum of A[i], B[j], C[k]
+return ans
+
+Sorting takes O(nlogn) time. If the arrays are alread sorted, it would be an O(n) algo.
+
+########################################################################################################################################################
+Talk to me about the GIL. How does it impact concurrency in Python? What kinds of applications does it impact more than others?
+How does Python's garbage collection work?
+What is the difference between range and xrange? How has this changed over time?
+Here's a function. Optimize it for me.
+How do you iterate over a list and pull element indices at the same time?
+I'm getting a maximum recursion depth error for a function. What does this mean? How can I mitigate the problem?
+How do you enforce ordering for a dictionary-style object?
+How does Python's list.sort work at a high level? Is it stable? What's the runtime?
+What's the difference between a list, dictionary, and array in Python?
+What does this list comprehension do?
+Here's a class hierarchy with some methods defined. When I call this function, what gets printed?
+What is monkeypatching? How can you do it in Python?
+What are some caveats to pickling? Marshaling?
+How many ways can you append or concatenate strings? Which of these ways is fastest? Easiest to read?
+Print me the full pathname of every file in this directory tree.
+What's wrong with this function?
+What's your preferred editor? (vim, of course - anything else and they fail.)
+
+
+1. A question how to implement tic tac toe or some game on similar logic to be implemented in Python.
+
+2. Binary search in an Array.
+
+3. Most of the questions were from dictionaries. Dictionary in Python is very useful in automation field and I would suggest that you know it. Understand the difference between lists, dictionary, tuple, set and when to use them.
+
+4. No one asks questions about built in functions or packages. All they ask to check is whether your logic is correct or not and given the basic Python tools: lists, dictionaries, strings, exception handling etc. whether you can solve that problem or not. Something like checking an input and typecasting it to Integer and how to handle that exception.
+
+5. File Read: different ways of reading file and when to use which one. 
+
+6. Questions related to regular expressions.
+
+
+
+1. What will be the output of the code below in Python 2? Explain your answer.
+
+    def div1(x,y):
+    print "%s/%s = %s" % (x, y, x/y)
+    
+    def div2(x,y):
+    print "%s//%s = %s" % (x, y, x//y)
+
+     div1(5,2)
+     div1(5.,2)
+     div2(5,2)
+     div2(5.,2.)
+2. What will be the output of the code below ?
+      list = ['a', 'b', 'c', 'd', 'e']
+      print list[10:]
+3. What  is a Lambda form? Explain about assert statement ?
+4. What is PEP 8 ?
+5. Is there a tool to help find bugs or perform static analysis ?
+6. What will be the output of the code below?  Explain your answer.
+     def multipliers():
+     return [lambda x : i * x for i in range(4)]
+     print [m(2) for m in multipliers()]
+	 
+	 
+	 
+#####################################################################################################################################################
+
+def foo(x=[]):
+    x.append(1)
+    return x
+
+
+>>> foo()
+>>> foo()
+
+
+If you're careless, you might expect the above to return [1] every time, but the result would be:
+
+1
+2
+[1]
+[1, 1]
+
+
+
+This is not one that I was asked, but one that I have seen and which is a stumper even for many fluent Python developers: what does the three-argument form of the type() function do?
+(Answer: it dynamically creates a class; the three arguments are the class __name__, its base classes, and a dict of its attributes.)
+(See Built-in Functions docs for more)
+
+
+#In Python the following 
+
+print "\xxx" #prints out the character represented by the octal value xxx
+
+#so
+print "\077"
+#gives ?
+
+#and 
+temp1 = "\077" 
+print "%s" %temp1
+#gives ?
+
+#but
+temp2 = "077"
+print "\%s" %temp2
+#gives \077
+
+#p.s. maybe this could be a good Python course exam question? :D
+	 
+	
+#####################################################################################################################################################
+
+Python Interview Questions 
+
+1. What is __init__.py?
+
+It is used to import a module in a directory, which is called package import.
+
+2. What is scope in python?
+
+Scope for names introduced in a python program is a region where it could be used, without any qualification. That is, scope is region where the unqalified reference to a name can be looked out in the namespace to find the object. During execution, when a name is referred, python uses LEGB rule to find out the object. It starts looking out first into the local namespace. Then it searches name in enclosed namespace created by nested def and lambda. Then into global namespace which is the module in which it is defined and then finally into built-in namespace.
+
+Example 1: >>> def addxy(x,y): # x, y are local. addxy is global ... temp=x+y # temp is local ... print temp ... return temp ... >>> addxy(1,2) 3 3
+
+3. What is shallow copy and deep copy in python?
+
+Object assignment does not copy object, it gets shared. All names point to same object. For mutable object types, modifying object using one name, reflects changes when accessed with other name. 
+Example : 
+>>> l=[1,2,3] 
+>>> l2 = l 
+>>> l2.pop(0) 
+1 
+>>> l2 
+[2, 3] 
+>>> l 
+[2, 3] 
+A copy module overcomes above problem by providing copy() and deepcopy(). copy() creates a copy of an object, creating a separate entity. 
+Example of shallow copy copy(): 
+>>> import copy 
+>>> copied_l = copy.copy(l) # performs shallow copy 
+>>> copied_l.pop(0) 
+2 
+>>> copied_l 
+[3] 
+>>> l 
+[2, 3] 
+copy() does not perform recursive copy of object. It fails for compound object types. 
+Example program for shallow copy problems: 
+>>> l 
+[[1, 2, 3], ['a', 'b', 'c']] 
+>>> s_list=copy.copy(l) # performs shallow copy 
+>>> s_list 
+[[1, 2, 3], ['a', 'b', 'c']] 
+>>> s_list[0].pop(0) 
+1 
+>>> s_list 
+[[2, 3], ['a', 'b', 'c']] 
+>>> l 
+[[2, 3], ['a', 'b', 'c']] # problem of shallow copy on compund object types 
+To overcome this problem, copy module provides deepcopy(). deepcopy() creates and returns deep copy of compound object (object containing other objects) 
+Example for deep copy 
+deepcopy(): 
+>>> l 
+[[1, 2, 3], ['a', 'b', 'c']] 
+>>> deep_l = copy.deepcopy(l) 
+>>> deep_l 
+[[1, 2, 3], ['a', 'b', 'c'] ] 
+>>> deep_l[0].pop(0) 
+1 
+>>> deep_l 
+[[2, 3], ['a', 'b', 'c']] 
+>>> l 
+[[1, 2, 3], ['a', 'b', 'c']] 
+1. What is python and its features?
+
+Python is simple and easy to learn language compared to other programming languages. Python was introduced to the world in the year 1991 by Guido van Rossum. It is a dynamic object oriented language used for developing software. It supports various programming languages and have a massive library support for many other languages. It is a modern powerful interpreted language with objects, modules, threads, exceptions, and automatic memory managements.
+
+Salient features of Python are
+–Simple & Easy: Python is simple language & easy to learn.
+–Free/open source: it means everybody can use python without purchasing license.
+–High level language: when coding in Python one need not worry about low-level details.
+–Portable: Python codes are Machine & platform independent.
+–Extensible: Python program supports usage of C/ C++ codes.
+–Embeddable Language: Python code can be embedded within C/C++ codes & can be used a scripting language.
+–Standard Library: Python standard library contains prewritten tools for programming.
+–Build-in Data Structure: contains lots of data structure like lists, numbers & dictionaries.
+
+2. Define a method in Python?
+
+A function on object x is a method which is called as x.name(arguments…). Inside the definition of class, methods are defined as functions:
+class C:
+def meth(self, atg):
+return arg*2+self.attribute
+
+3. Define self?
+
+'self' is a conventional name of method’s first argument. A method which is defined as meth(self, x ,y ,z) is called as a.meth(x, y, z) for an instance of a class in which definition occurs and  is called as meth(a, x ,y, z).
+
+4. Describe python usage in web programming?
+
+Python is used perfectly for web programming and have many special features to make it easy to use. Web frame works, content management systems, WebServers, CGI scripts, Webclient programming, Webservices, etc are the features supported by python. Python language is used to create various high end applications because of its flexibility.
+
+5. Is there any tool used to find bugs or carrying out static analysis?
+
+Yes. PyChecker is the static analysis tool used in python to find bugs in source code, warns about code style and complexity etc. Pylint is a tool that verifies whether a module satisfies standards of coding and makes it possible to add custom feature and write plug-ins.
+
+6. Rules for local and global variables in python?
+
+In python, the variables referenced inside a function are global. When a variable is assigned new value anywhere in the body of a function then it is assumed as local. In a function, if a variable ever assigned new value then the variable is implicitly local and explicitly it should be declared as global. If all global references require global then you will be using global at anytime. You’d declare as global each reference to built-in function or to component of module which is imported. The usefulness of global declaration in identifying side-effects is defeated by this clutter.
+
+7. How to find methods or attributes of an object?
+
+Built-in dir() function of Python ,on an instance shows the instance variables as well as the methods and class attributes defined by the instance’s class and all its base classes alphabetically. So by any object as argument to dir() we can find all the methods & attributes of the object’s class.
+
+Following code snippet shows dir() at work :
+class Employee:
+def __init__(self,name,empCode,pay):
+self.name=name
+self.empCode=empCode
+self.pay=pay
+
+print("dir() listing all the Methods & attributes of class Employee")
+print dir(e)
+-----------------------------------------------------
+Output
+dir() listing all the Methods & attributes of class Employee
+[ '__init__', 'empCode', 'name', 'pay']
+
+8. Is there any equivalent to scanf() or sscanf()?
+
+No.  Usually, the easy way to divide line into whitespace-delimited words for simple input parsing use split() method of string objects. Then, decimal strings are converted to numeric values using float() or int(). An optional “sep” parameter is supported by split() which is useful if something is used in the place of whitespace as separator. For complex input parsing, regular expressions are powerful then sscanf() of C and perfectly suits for the task.
+
+9. Define class?
+
+Class is a specific object type created when class statement is executed. To create instances objects, class objects can be used as templates which represent both code and data specific to datatype. In general, a class is based on one or many classes known as base classes. It inherits methods and attributes of base classes. An object model is now permitted to redefine successively using inheritance. Basic accessor methods are provided by generic Mailbox for subclasses and mailbox like MaildirMailbox, MboxMailbox, OutlookMailbox which handle many specific formats of mailbox.
+
+10. How to prevent blocking in content() method of socket?
+
+Commonly, select module is used to help asynchronous I/O.
+
+11. In python, are there any databases to DB packages?
+
+Yes. Bsddb package is present in Python 2.3 which offers an interface to BerkeleyDatabase library. It Interface to hashes based on disk such as GDBM and DBM are included in standard python.
+
+12. How do we share global variables across modules in Python?
+
+We can create a config file & store the entire global variable to be shared across modules or script in it. By simply importing config, the entire global variable defined it will be available for use in other modules.
+
+For example I want a, b & c to share between modules.
+config.py :
+a=0
+b=0
+c=0
+
+module1.py:
+import config
+config.a = 1
+config.b =2
+config.c=3
+print “ a, b & resp. are : “ , config.a, config.b, config.c
+------------------------------------------------------------------------
+output of module1.py will be
+1 2 3
+
+13.  How can we pass optional or keyword parameters from one function to another in Python?
+
+Gather the arguments using the * and ** specifiers in the function’s parameter list. This gives us positional arguments as a tuple and the keyword arguments as a dictionary. Then we can pass these arguments while calling another function by using * and **:
+
+def fun1(a, *tup, **keywordArg):
+...
+keywordArg['width']='23.3c'
+...
+Fun2(a, *tup, **keywordArg)
+
+14.  Explain pickling and unpickling.
+
+Pickle is a standard module which serializes & de-serializes a python object structure. Pickle module accepts any python object converts it into a string representation & dumps it into a file(by using dump() function) which can be used later, process is called pickling. Whereas unpickling is process of retrieving original python object from the stored string representation for use.
+
+15. Explain how python is interpreted.
+
+Python program runs directly from the source code. Each type Python programs are executed code is required. Python converts source code written by the programmer into intermediate language which is again translated it into the native language / machine language that is executed. So Python is an Interpreted language.
+
+16.  How is memory managed in python &
+
+Memory management in Python involves a private heap containing all Python objects and data structures. Interpreter takes care of Python heap and that the programmer has no access to it. The allocation of heap space for Python objects is done by Python memory manager. The core API of Python provides some tools for the programmer to code reliable and more robust program. Python also has a build-in garbage collector which recycles all the unused memory. When an object is no longer referenced by the program, the heap space it occupies can be freed. The garbage collector determines objects which are no longer referenced by the sprogram frees the occupied memory and make it available to the heap space. The gc module defines functions to enable /disable                         garbage collector:
+gc.enable() -Enables automatic garbage collection.
+gc.disable() - Disables automatic garbage collection.
+
+17. Explain indexing and slicing operation in sequences
+
+Different types of sequences in python are strings, Unicode strings, lists, tuples, buffers, and xrange objects. Slicing & indexing operations are salient features of sequence. indexing operation allows to access a particular item in the sequence directly ( similar to the array/list indexing) and the slicing operation allows to retrieve a part of the sequence. The slicing operation is used by specifying the name of the sequence followed by an optional pair of numbers separated by a colon within square brackets say S[startno.:stopno]. The startno in the slicing operation indicates the position from where the slice starts and the stopno indicates where the slice will stop at. If the startno is ommited, Python will start at the beginning of the sequence. If the stopno is ommited, Python will stop at the end of the sequence..
+
+Following code will further explain indexing & slicing operation:
+>>> cosmeticList =[‘lipsstick’,’facepowder’,eyeliner’,’blusher’,kajal’]
+>>> print “Slicing operation :”,cosmeticList[2:]
+Slicing operation :[‘eyeliner’,’blusher’,kajal’]
+>>>print “Indexing operation :”,cosmeticList[0]
+“Indexing operation :lipsstick
+
+18. Explain how to make Forms in python.
+
+As python is scripting language forms processing is done by Python. We need to import cgi module to access form fields using FieldStorage class.
+
+Every instance of class FieldStorage (for ‘form’) has the following attributes:
+
+form.name: The name of the field, if specified.
+form.filename: If an FTP transaction, the client-side filename.
+form.value: The value of the field as a string.
+form.file: file object from which data can be read.
+form.type: The content type, if applicable.
+form.type_options: The options of the ‘content-type’ line of the HTTP request, returned as a dictionary.
+form.disposition: The field ‘content-disposition'; None if unspecified.
+form.disposition_options: The options for ‘content-disposition’.
+form.headers: All of the HTTP headers returned as a dictionary.
+
+A code snippet of form handling in python:
+
+import cgi
+
+form = cgi.FieldStorage()
+if not (form.has_key("name") and form.has_key("age")):
+print "<H1>Name & Age not Entered</H1>"
+print "Fill the Name & Age accurately."
+return
+print "<p>name:", form["name"].value
+print "<p>Age:", form["age"].value
+
+29. Describe how to implement Cookies for Web python.
+
+A cookie is an arbitrary string of characters that uniquely identify a session. Each cookie is specific to one Web site and one user.
+
+The Cookie module defines classes for abstracting the concept of cookies. It contains following method to creates cookie
+
+Cookie.SimpleCookie([input])
+Cookie.SerialCookie([input]
+Cookie.SmartCookie([input])
+for instance following code creates a new cookie ck-
+
+import Cookie
+ck= Cookie.SimpleCookie ( x )
+
+20.What are uses of lambda?
+
+It used to create small anonymous functions at run time. Like e.g.
+
+def fun1(x):
+
+return x**2
+
+print fun1(2)
+
+it gives you answer 4
+
+the same thing can be done using
+
+sq=lambda x: x**2
+
+print sq(2)
+
+it gives the answer 4
+
+21. When do you use list vs. tuple vs. dictionary vs. set?
+
+List and Tuple are both ordered containers. If you want an ordered container of constant elements use tuple as tuples are immutable objects.
+
+22. When you need ordered container of things, which will be manipulated, use lists.
+
+Dictionary is key, value pair container and hence is not ordered. Use it when you need fast access to elements, not in ordered fashion. Lists are indexed and index of the list cannot be “string” e.g. list [‘myelement’] is not a valid statement in python.
+
+23. Do they know a tuple/list/dict when they see it?
+
+Dictionaries are consisting of pair of keys and values.like {’key’:’value’}.
+
+book={’cprog’:'1024',’c++’:'4512'}
+
+Keys are unique but values can be same. The main difference between list and tuple is you can change the list but you cannot change the tuple. Tuple can be used as keys in mapping where list is not.
+
+24. Why was the language called as Python?
+
+At the same time he began implementing Python, Guido van Rossum was also reading the published scripts from “Monty Python’s Flying Circus” (a BBC comedy series from the seventies, in the unlikely case you didn’t know). It occurred to him that he needed a name that was short, unique, and slightly mysterious, so he decided to call the language Python.
+
+25. What is used to represent Strings in Python? Is double quotes used for String representation or single quotes used for String representation in Python?
+
+Using Single Quotes (‘)
+
+You can specify strings using single quotes such as ‘Quote me on this’ . All white space i.e. spaces and tabs are preserved as-is.
+
+Using Double Quotes (“)
+
+Strings in double quotes work exactly the same way as strings in single quotes. An example is “What’s your name?”
+
+Using Triple Quotes (”’ or “””)
+
+You can specify multi-line strings using triple quotes. You can use single quotes and double quotes freely within the triple quotes. An example is
+
+”’This is a multi-line string. This is the first line.
+
+This is the second line.
+
+“What’s your name?,” I asked.
+
+He said “Bond, James Bond.”
+
+26. Why cannot lambda forms in Python contain statements?
+
+A lambda statement is used to create new function objects and then return them at runtime that is why lambda forms in Python did not contain statement.
+
+27. Which of the languages does Python resemble in its class syntax?
+
+C++ is the appropriate language that Python resemble in its class syntax.
+
+28. Does Python support strongly for regular expressions? What are the other languages that support strongly for regular expressions?
+
+Yes, python strongly support regular expression. Other languages supporting regular expressions are: Delphi, Java, Java script, .NET, Perl, Php, Posix, python, Ruby, Tcl, Visual Basic, XML schema, VB script, Visual Basic 6.
+
+29. Why is not all memory freed when Python exits?
+
+Objects referenced from the global namespaces of Python modules are not always de-allocated when Python exits. This may happen if there are circular references. There are also certain bits of memory that are allocated by the C library that are impossible to free (e.g. a tool like the one Purify will complain about these). Python is, however, aggressive about cleaning up memory on exit and does try to destroy every single object.
+
+If you want to force Python to delete certain things on de-allocation, you can use the at exit module to register one or more exit functions to handle those deletions.
+
+30. What is a Lambda form? Explain about assert statement?
+
+The lambda form:
+
+Using lambda keyword tiny anonymous functions can be created. It is a very powerful feature of Python which declares a one-line unknown small function on the fly. The lambda is used to create new function objects and then return them at run-time. The general format for lambda form is:
+lambda parameter(s): expression using the parameter(s)
+
+For instance k is lambda function-
+>>> k= lambda y: y + y
+>>> k(30)
+60
+>>> k(40)
+80
+
+The assert statement:
+
+The build-in assert statement of python introduced in version 1.5 is used to assert that something is true. Programmers often place assertions at the beginning of a function to check for valid input, and after function call to check for valid output. Assert statement can be removed after testing of program is over. If assert evaluates to be false, an AssertionError exception is raised. AssertionError exceptions can be handled with the try-except statement.
+
+The general syntax for assert statement is:
+
+assert Expression[, Arguments]
+
+31.  Explain the role of repr function.
+
+Python can convert any value to a string by making use of two functions repr() or str(). The str() function returns representations of values which are human-readable, while repr() generates representations which can be read by the interpreter. repr() returns a machine-readable representation of values, suitable for an exec command. Following code sniipets shows working of repr() & str() :
+
+def fun():
+y=2333.3
+x=str(y)
+z=repr(y)
+print " y :",y
+print "str(y) :",x
+print "repr(y):",z
+fun()
+-------------
+output
+y : 2333.3
+str(y) : 2333.3
+repr(y) : 2333.3000000000002
+
+32.  What is LIST comprehensions features of Python used for?
+
+LIST comprehensions features were introduced in Python version 2.0, it creates a new list based on existing list. It maps a list into another list by applying a function to each of the elements of the existing list. List comprehensions creates lists without using map() , filter() or lambda form.
+
+33.  How do you make a higher order function in Python?
+
+A higher-order function accepts one or more functions as input and returns a new function. Sometimes it is required to use function as data. To make high order function , we need to import functools module The functools.partial() function is used often for high order function.
+
+34. Explain how to copy an object in Python. 
+
+There are two ways in which objects can be copied in python. Shallow copy & Deep copy. Shallow copies duplicate as minute as possible whereas Deep copies duplicate everything. If a is object to be copied then
+
+-copy.copy(a) returns a shallow copy of a.
+-copy.deepcopy(a) returns a deep copy of a.
+35.  How do I convert a string to a number? 
+
+Python contains several built-in functions to convert values from one data type to another data type.
+
+The int function takes string and coverts it to an integer.
+s = "1234" # s is string
+i = int(s) # string converted to int
+print i+2
+------------------------
+1236
+The float function converts strings into float number.
+s = "1234.22" # s is string
+i = float(s) # string converted to float
+print i
+-------------------------
+1234.22
+
+36. What is a negative index in python?
+
+Python arrays & list items can be accessed with positive or negative numbers (also known as index). For instance our array/list is of size n, then for positive index 0 is the first index, 1 second, last index will be n-1. For negative index, -n is the first index, -(n-1) second, last negative index will be – 1. A negative index accesses elements from the end of the list counting backwards.
+
+An example to show negative index in python.
+
+>>> import array
+>>> a= [1, 2, 3]
+>>> print a[-3]
+1
+>>> print a[-2]
+2
+>>> print a[-1]
+3
+
+37 .How do you make an array in Python?
+
+The array module contains methods for creating arrays of fixed types with homogeneous data types. Arrays are slower then list. Array of characters, integers, floating point numbers can be created using array module. array(typecode[, intializer]) Returns a new array whose items are constrained by typecode, and initialized from the optional initialized value. Where the typecode can be for instance ‘c’ for character value, ‘d’ for double, ‘f’ for float.
+
+38. Explain how to create a multidimensional list.
+
+There are two ways in which Multidimensional list can be created:
+
+By direct initializing the list as shown below to create multidimlist below
+
+>>>multidimlist = [ [227, 122, 223],[222, 321, 192],[21, 122, 444]]
+>>>print multidimlist[0]
+>>>print multidimlist[1][2]
+__________________________
+Output
+[227, 122, 223]
+192
+
+The second approach is to create a list of the desired length first and then fill in each element with a newly created lists demonstrated below :
+
+>>>list=[0]*3
+>>>for i in range(3):
+>>> list[i]=[0]*2
+>>>for i in range (3):
+>>> for j in range(2):
+>>> list[i][j] = i+j
+>>>print list
+__________________________
+Output
+[[0, 1], [1, 2], [2, 3]]
+
+39. Explain how to overload constructors (or methods) in Python.
+
+_init__ () is a first method defined in a class. when an instance of a class is created, python calls __init__() to initialize the attribute of the object.
+
+Following example demonstrate further:
+
+class Employee:
+
+def __init__(self, name, empCode,pay):
+self.name=name
+self.empCode=empCode
+self.pay=pay
+
+e1 = Employee("Sarah",99,30000.00)
+
+e2 = Employee("Asrar",100,60000.00)
+print("Employee Details:")
+
+print(" Name:",e1.name,"Code:", e1.empCode,"Pay:", e1.pay)
+print(" Name:",e2.name,"Code:", e2.empCode,"Pay:", e2.pay)
+---------------------------------------------------------------
+Output
+
+Employee Details:
+(' Name:', 'Sarah', 'Code:', 99, 'Pay:', 30000.0)
+(' Name:', 'Asrar', 'Code:', 100, 'Pay:', 60000.0)
+
+40. Describe how to send mail from a Python script.
+
+The smtplib module defines an SMTP client session object that can be used to send mail to any Internet machine.
+
+A sample email is demonstrated below.
+
+import smtplib
+SERVER = smtplib.SMTP(‘smtp.server.domain’)
+FROM = sender@mail.com
+TO = ["user@mail.com"] # must be a list
+SUBJECT = "Hello!"
+TEXT = "This message was sent with Python's smtplib."
+# Main message
+message = """
+From: Sarah Naaz < sender@mail.com >
+To: CarreerRide user@mail.com
+Subject: SMTP email msg
+This is a test email. Acknowledge the email by responding.
+""" % (FROM, ", ".join(TO), SUBJECT, TEXT)
+server = smtplib.SMTP(SERVER)
+server.sendmail(FROM, TO, message)
+server.quit()
+
+41.  Describe how to generate random numbers in Python.
+
+Thee standard module random implements a random number generator.
+
+There are also many other in this module, such as:
+
+uniform(a, b) returns a floating point number in the range [a, b].
+randint(a, b)returns a random integer number in the range [a, b].
+random()returns a floating point number in the range [0, 1].
+
+Following code snippet show usage of all the three functions of module random:
+Note: output of this code will be different evertime it is executed.
+
+import random
+i = random.randint(1,99)# i randomly initialized by integer between range 1 & 99
+j= random.uniform(1,999)# j randomly initialized by float between range 1 & 999
+k= random.random()# k randomly initialized by float between range 0 & 1
+print("i :" ,i)
+print("j :" ,j)
+print("k :" ,k)
+__________
+Output -
+('i :', 64)
+('j :', 701.85008797642115)
+('k :', 0.18173593240301023)
+
+Output-
+('i :', 83)
+('j :', 56.817584548210945)
+('k :', 0.9946957743038618)
+
+42. What is the optional statement used in a try except statement in Python?
+
+There are two optional clauses used in try except statements:
+
+1. Else clause: It is useful for code that must be executed when the try block does not create any exception
+
+2. Finally clause: It is useful for code that must be executed irrespective of whether an exception is generated or not.
+
+43. What is used to create Unicode string in Python?
+
+Add u before the string
+
+>>> u 'test'
+
+44. What are the uses of List Comprehensions feature of Python?
+
+List comprehensions help to create and manage lists in a simpler and clearer way than using map(), filter() and lambda. Each list comprehension consists of an expression followed by a clause, then zero or more for or if clauses.
+
+45. Which all are the operating system that Python can run on?
+
+Python can run of every operating system like UNIX/LINUX, Mac, Windows, and others.
+
+46. What is the statement that can be used in Python if a statement is required syntactically but the program requires no action?
+
+Pass is a no-operation/action statement in python
+
+If we want to load a module and if it does not exist, let us not bother, let us try to do other task. The following example demonstrates that.
+
+Try:
+
+Import module1
+
+Except:
+
+Pass
+
+47. What is the Java implementation of Python popularly known as?
+
+Jython
+
+48. What is the method does join() in python belong?
+
+String method
+
+49. Does python support switch or case statement in Python? If not what is the reason for the same?
+
+No. You can use multiple if-else, as there is no need for this.
+
+50. How is the Implementation of Pythons dictionaries done?
+
+Using curly brackets -> {}
+
+E.g.: {'a':'123', 'b':'456'}
+
+51. What is the language from which Python has got its features or derived its features?
+
+Most of the object oriented programming languages to name a few are C++, CLISP and Java is the language from which Python has got its features or derived its features.
+
+52. What are the disadvantages of the Python programming language?
+
+One of the disadvantages of the Python programming language is it is not suited for fast and memory intensive tasks.
+
+53. Why is not all memory freed when Python exits?
+
+Objects referenced from the global namespaces of Python modules are not always de-allocated when Python exits. This may happen if there are circular references. There are also certain bits of memory that are allocated by the C library that are impossible to free (e.g. a tool like the one Purify will complain about these). Python is, however, aggressive about cleaning up memory on exit and does try to destroy every single object.
+
+If you want to force Python to delete certain things on de-allocation, you can use the at exit module to register one or more exit functions to handle those deletions.
+
+54. Which of the languages does Python resemble in its class syntax?
+
+C++ is the appropriate language that Python resemble in its class syntax.
+
+55. Who created the Python programming language?
+
+Python programming language was created by Guido van Rossum.
+
+
+
