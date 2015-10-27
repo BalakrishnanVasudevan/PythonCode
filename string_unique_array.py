@@ -2,7 +2,7 @@
 #Code to check if there are unique characters in the string
 
 
-mystring = "balakrishnan"
+mystring = "orangutan"
 alpha = [0 for i in range (0,26)]
 print (alpha)
 for j in range (0,len(mystring)):
@@ -14,4 +14,4 @@ for i in range (0,26):
   print (chr(97+i),'is unique')
  if alpha[i]>1:
   print (chr(97+i),'occurs',alpha[i],'times')
- i+=1
+ i+=1	
