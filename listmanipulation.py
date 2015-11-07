@@ -16,4 +16,5 @@ print ('Enter the elements of the array \n')
 for i in range(int(num)):
  n = input("num:")
  num_array.append(int(n))
+print (num_array)
 print (reverse(num_array))
