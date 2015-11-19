@@ -7,5 +7,7 @@ n = int(input('Enter number of elements in the list: '))
 for i in range (1,n):
  num = int(input('num: '))
  mylist.append(num)
- sum = sum+num
-print ('Missing number in the list',(n*(n+1)/2)-sum)
+b = num[0]
+for j in range (1,len(mylist)):
+ b = b^mylist[j]
+for k in range 
